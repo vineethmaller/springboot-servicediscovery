@@ -1,0 +1,53 @@
+---
+spring:
+  profiles: default
+  application: 
+    name: ws_discovery
+server:
+  port: 8081
+
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}-${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+---
+spring:
+  profiles: peer1
+  application: 
+    name: ws_discovery
+server:
+  port: 8081
+
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}-${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8082/eureka/
+
+---
+spring:
+  profiles: peer2
+  application: 
+    name: ws_discovery
+server:
+  port: 8082
+
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}-${server.port}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8081/eureka/
